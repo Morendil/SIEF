@@ -1,0 +1,23 @@
+data:
+  build: data
+solr:
+  build: solr
+  ports:
+    - "8983:8983"
+mongodb:
+  volumes_from:
+    - data
+  build: mongodb
+  ports:
+    - "27017:27017"
+back:
+  build: sief-back
+  ports:
+    - "8000:8000"
+  links:
+    - mongodb
+    - solr
+front:
+  build: sief-front
+  ports:
+    - "8001:9000"
